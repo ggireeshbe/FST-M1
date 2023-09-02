@@ -94,32 +94,32 @@ public class AlchemyLMSProject {
 
     @Test
     public void Activity8() {
-        driver.findElement(By.linkText("My Account")).click();
-        String sTitle = driver.getTitle();
-        Assert.assertEquals("My Account – Alchemy LMS", sTitle);
-        driver.findElement(By.linkText("Login")).click();
-        driver.findElement(By.id("user_login")).sendKeys("root");
-        driver.findElement(By.id("user_pass")).sendKeys("pa$$w0rd");
-        driver.findElement(By.id("wp-submit")).click();
-        WebElement logoutbutton = driver.findElement(By.linkText("Logout"));
-        Assert.assertTrue(logoutbutton.isDisplayed());
-
+        driver.findElement(By.linkText("Contact")).click();
+        driver.findElement(By.id("wpforms-8-field_0")).sendKeys("Test Name");
+        driver.findElement(By.id("wpforms-8-field_1")).sendKeys("test@gmail.com");
+        driver.findElement(By.id("wpforms-8-field_3")).sendKeys("Test_Subject");
+        driver.findElement(By.id("wpforms-8-field_2")).sendKeys("Test conntent");
+        driver.findElement(By.xpath("//button[@name='wpforms[submit]']")).click();
+        String sConfirmtest=driver.findElement(By.xpath("//div[@id='wpforms-confirmation-8']")).getText();
+        System.out.println(sConfirmtest);
+        Assert.assertEquals("Thanks for contacting us! We will be in touch with you shortly.", sConfirmtest);
     }
+
     @Test
     public void Activity9() {
         driver.findElement(By.linkText("My Account")).click();
         String sTitle = driver.getTitle();
         Assert.assertEquals("My Account – Alchemy LMS", sTitle);
-        driver.findElement(By.linkText("Login")).click();
+        /*driver.findElement(By.linkText("Login")).click();
         driver.findElement(By.id("user_login")).sendKeys("root");
         driver.findElement(By.id("user_pass")).sendKeys("pa$$w0rd");
         driver.findElement(By.id("wp-submit")).click();
         WebElement logoutbutton = driver.findElement(By.linkText("Logout"));
-        Assert.assertTrue(logoutbutton.isDisplayed());
+        Assert.assertTrue(logoutbutton.isDisplayed()); */
 
         driver.findElement(By.linkText("All Courses")).click();
         driver.findElement(By.xpath("//a[text()='See more...'][1]")).click();
-        driver.findElement(By.xpath("//*[starts-with(@class,'ld-item-list-item ld-expandable ld-item-lesson-item ld-lesson-item')][1]")).click();
+        driver.findElement(By.xpath("//div[@class='ld-item-list-item-preview'][1]")).click();
         String coursetitle = driver.findElement(By.xpath("//div[@class='ld-focus-content']//h1")).getText();
         Assert.assertEquals(coursetitle,"Developing Strategy");
 
@@ -136,6 +136,6 @@ public class AlchemyLMSProject {
 
     @AfterMethod
     public void closebrowser(){
-         driver.close();
+       //  driver.close();
     }
 }
