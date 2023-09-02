@@ -10,6 +10,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class AlchemyLMSProject {
     WebDriver driver;
     @BeforeMethod
@@ -32,9 +34,29 @@ public class AlchemyLMSProject {
     }
     @Test
     public void Activity3() {
-        String sTitle =driver.findElement(By.xpath("//h3[@class='uagb-ifb-title']")).getText();
+        List<WebElement> sTitles = driver.findElements(By.xpath("//h3[@class='uagb-ifb-title'][1]"));
+        int i=1;
+        for (WebElement webElement : sTitles) {
+            if(i==1) {
+                System.out.println(webElement.getText());
+                Assert.assertEquals("Actionable Training", webElement.getText());
+            }
+            i++;
+        }
 
-        System.out.println(sTitle);
+    }
+
+    @Test
+    public void Activity4() {
+        List<WebElement> sTitles = driver.findElements(By.xpath("//h3[@class='entry-title']"));
+        int i=1;
+        for (WebElement webElement : sTitles) {
+            if(i==2) {
+                System.out.println(webElement.getText());
+                Assert.assertEquals("Email Marketing Strategies", webElement.getText());
+            }
+            i++;
+        }
 
     }
 
@@ -43,9 +65,8 @@ public class AlchemyLMSProject {
         driver.findElement(By.linkText("My Account")).click();
         String sTitle = driver.getTitle();
         Assert.assertEquals("My Account – Alchemy LMS", sTitle);
-
-
     }
+
     @Test
     public void Activity6() {
         driver.findElement(By.linkText("My Account")).click();
@@ -58,6 +79,17 @@ public class AlchemyLMSProject {
         WebElement logoutbutton = driver.findElement(By.linkText("Logout"));
         Assert.assertTrue(logoutbutton.isDisplayed());
 
+    }
+
+    @Test
+    public void Activity7() {
+        driver.findElement(By.linkText("All Courses")).click();
+        List<WebElement> sTitles = driver.findElements(By.xpath("//h3[@class='entry-title']"));
+        System.out.println("Total Number of course is: "+sTitles.size());
+        for (WebElement webElement : sTitles) {
+                System.out.println(webElement.getText());
+
+        }
     }
 
     @Test
@@ -104,6 +136,6 @@ public class AlchemyLMSProject {
 
     @AfterMethod
     public void closebrowser(){
-     //   driver.close();
+         driver.close();
     }
 }
